@@ -1,0 +1,31 @@
+<h1>コメントストリーム</h1>
+<div>
+    <form action="/post" method="POST">
+        <input type="text" name="text" placeholder="text"><br>
+        <input type="submit" value="投稿">
+    </form>
+    <table border=1>
+      <thread>
+        <tr>
+          <th>投票数</th>
+          <th>ユーザ名</th>
+          <th>本文</th>
+          <th>投稿日時</th>
+          <th></th>
+        </tr>
+      </thread>
+      <tbody>
+        {% for post in posts %}
+        <tr>
+          <td>{{ post.votes }}</td>
+          <td>{{ post.user }}</td>
+          <td>{{ post.text}}</td>
+          <td>{{ post.timestamp }}</td>
+          <td><form action="/vote" method="POST">
+            <button type="submit" name="post_id" value="{{ post.id }}">投票</button>
+          </form></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>

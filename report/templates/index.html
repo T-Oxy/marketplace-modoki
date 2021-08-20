@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>テキストショッピング</title>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/js/jquery.tablesorter.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/css/theme.default.min.css">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='design.css')}}">
+  <script>
+    $(document).ready(function() {
+      $('#work-table').tablesorter();
+    });
+  </script>
+</head>
+
+<body>
+<h1>テキストショッピング</h1>
+
+<h2>イベント情報</h2>
+<div>
+  <h3><a href="/compe">「こんな大学はいやだ」大喜利コンテスト開催中！</a></h3>
+  <p>お題「こんな大学はいやだ」に対する面白い回答を募集しています。</p>
+  <p>複数回答可! いいね数上位5つの回答の作者には賞金500円贈呈!</p>
+</div>
+
+
+<h2>お客様情報</h2>
+<div>
+  <p>お名前：{{ user_name }}</p>
+  <p><a href="/cart">カートの確認</a></p>
+</div>
+
+<h2>作品投稿</h2>
+<div>
+  <form  action="/sell" method="POST">
+    <p><label>作品:<input type="text" name="name" placeholder="作品(テキスト)" size="50" maxlength="5\
+0"></label></p>
+    <p><label>コメント:<input type="text" name="detail" placeholder="コメント" size="50" maxlength="5\
+0"></label></p>
+    <p>カテゴリ:
+      <label><input type="radio" name="category" value="詩">詩</label>
+      <label><input type="radio" name="category" value="ギャグ">ギャグ</label>
+      <label><input type="radio" name="category" value="つぶやき">つぶやき</label>
+      <label><input type="radio" name="category" value="その他">その他</label>
+    </p>
+    <p><label>値段(円):<input type="number" name="price" placeholder="値段"></label></p>
+    <p>
+      <input type="submit" value="投稿">
+      <input type="reset" value="リセット">
+    </p>
+  </form>
+</div>
+
+<h2>作品一覧</h2>
+<div>
+  <h3>作品検索(部分一致検索)</h3>
+  <form  action="/find" method="POST">
+    <label>　投稿者:<input type="text" name="seller" placeholder="投稿者"></label>
+    <label>　作品:<input type="text" name="name" placeholder="作品"></label>
+    <p>
+      <input type="submit" value="検索">
+      <input type="reset" value="リセット">
+    </p>
+  </form>
+  {%if works != 0 %}
+  <table id="work-table" border=1>
+    <thead>
+      <tr>
+        <th>投稿者</th>
+        <th>作品</th>
+        <th>カテゴリ</th>
+        <th>値段(円)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for work in works %}
+      <tr>
+        <td>{{ work.seller }}</td>
+        <td><a href="/work/{{ work._id }}">{{ work.name }}</a></td>
+        <td>{{ work.category }}</td>
+        <td>{{ work.price }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+</div>
+<div>
+  <p><a href="/">ホーム</a></p>
+</div>
+</body>
+</html>

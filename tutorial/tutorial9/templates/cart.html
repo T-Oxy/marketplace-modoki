@@ -1,0 +1,15 @@
+<h1>マーケットプレイス - カートの確認</h1>
+<div>
+    {% if products|length == 0 %}
+        <p>カートは空です</p>
+    {% else %}
+        <form  action="/checkout" method="POST">
+            <button type="submit">注文を確定する</button>
+        </form>
+        {% for product in products %}
+        {% set _id = product._id|string %}
+        <a href="/product/{{ _id }}">{{ product.name }}</a>: {{ qtys[_id] }} 個<br>
+        {% endfor %}
+    {% endif %}
+    <p><a href="/">トップに戻る</a></p>
+</div>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>大喜利コンテスト | テキストショッピング</title>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/js/jquery.tablesorter.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/css/theme.default.min.css">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='design.css')}}">
+  <script>
+    $(document).ready(function() {
+      $('#work-table').tablesorter();
+    });
+  </script>
+<head>
+
+<body>
+<h1>「こんな大学はいやだ」大喜利コンテスト</h1>
+<div>
+    <form action="/post" method="POST">
+        <input type="text" name="text" placeholder="回答"><br>
+        <input type="submit" value="投稿">
+    </form>
+    
+    <table id="work-table" border=1>
+      <thead>
+        <tr>
+          <th>いいね数</th>
+          <th>回答者</th>
+          <th>回答</th>
+          <th>投稿日時</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in posts %}
+        <tr>
+          <td>{{ post.votes }}</td>
+          <td>{{ post.user }}</td>
+          <td>{{ post.text}}</td>
+          <td>{{ post.timestamp }}</td>
+          <td><form action="/vote" method="POST">
+            <button type="submit" name="post_id" value="{{ post.id }}">いいね！</button>
+          </form></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+<p><a href="/">ホーム</a></p>
+</body>
+</html>

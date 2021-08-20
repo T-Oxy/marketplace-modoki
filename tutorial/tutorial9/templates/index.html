@@ -1,0 +1,11 @@
+<h1>マーケットプレイス</h1>
+<div>
+    <form  action="/sell" method="POST">
+        <input type="text" name="name" placeholder="name"><br>
+        <input type="submit" value="出品する">
+    </form>
+    <p><a href="/cart">カートの確認</a></p>
+    {% for product in products %}
+    <a href="/product/{{ product._id }}">{{ product.name }}</a><br>
+    {% endfor %}
+</div>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>カートの確認 | テキストショッピング</title>
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='design.css')}}">
+</head>
+
+<body>
+  <h1>テキストショッピング - カートの確認</h1>
+  <div>
+    {% if works|length == 0 %}
+        <p>カートは空です</p>
+    {% else %}
+	{% set sum = [0] %}
+        {% for work in works %}
+        {% set _id = work._id|string %}
+        {% set _ = sum.append(sum[0] + work.price|int * qtys[_id]|int) %}
+	{% set _ = sum.pop(0) %}
+        <a href="/work/{{ _id }}">{{ work.name }}</a>　:{{ work.price }}円 × {{ qtys[_id] }} 点　
+        <form  action="/remove_from_cart" method="POST">
+          <button type="submit" name="work_id" value="{{ work._id }}">カートから削除</button>
+        </form>
+	<br>
+	{% endfor %}
+	合計金額: {{ sum[0] }}円
+	<br>
+        <form  action="/checkout" method="POST">
+            <button type="submit">購入する</button>
+        </form>
+    {% endif %}
+    <p><a href="/">ホーム</a></p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>購入履歴 | テキストショッピング</title>
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='design.css')}}">
+</head>
+
+<body>
+  <h1>テキストショッピング - 購入履歴</h1>
+  <div>
+    {% if qtys == 0 %}
+        <p>まだ購入した作品がありません</p>
+    {% else %}
+        {% for qty in qtys %}
+	{{ qty }}
+	<br>
+        {% endfor %}
+    {% endif %}
+    <br>	
+    <p><a href="/">ホーム</a></p>
+  </div>
+</body>
+</html>

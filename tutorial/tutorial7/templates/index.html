@@ -1,0 +1,28 @@
+<h1>ツイートアーカイブ</h1>
+<div>
+    <form  action="/find" method="POST">
+        <input type="text" name="field" placeholder="field">
+        <input type="text" name="value" placeholder="value">
+        <input type="submit" value="表示">
+    </form>
+    {%if contents != 0 %}
+    <table>
+      <thread>
+        <tr>
+          <th>ユーザ名</th>
+          <th>投稿日時</th>
+          <th>本文</th>
+        </tr>
+      </thread>
+      <tbody>
+        {% for tweets in contents %}
+        <tr>
+          <td>{{ tweets.user['name'] }}</td>
+          <td>{{ tweets.created_at }}</td>
+          <td>{{ tweets.text}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+</div>

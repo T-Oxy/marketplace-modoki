@@ -1,0 +1,9 @@
+<h1>マーケットプレイス - {{ product.name }}</h1>
+<div>
+    <form  action="/add_to_cart" method="POST">
+        <button type="submit" name="product_id" value="{{ product._id }}">カートに入れる</button>
+    </form>
+    <h3>{{ product.name }}</h3>
+    <p>出品者：{{ product.seller }}</p>
+    <p><a href="/">トップに戻る</a></p>
+</div>

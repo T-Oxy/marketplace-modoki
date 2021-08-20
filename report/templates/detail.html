@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>作品詳細 | テキストショッピング</title>
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='design.css')}}">
+</head>
+
+<body>
+  <h1>テキストショッピング - 作品詳細</h1>
+  <div>
+    <h3>{{ work.name }}</h3>
+    <p>投稿者：{{ work.seller }}</p>
+    <p>コメント:{{ work.detail }}</p>
+    <p>カテゴリ:{{ work.category }}</p>
+    <p>値段:{{ work.price }}円</p>
+  </div>
+  <div>
+    <form  action="/add_to_cart" method="POST">
+        <button type="submit" name="work_id" value="{{ work._id }}">カートに入れる</button>
+    </form>
+    <p><a href="/">ホーム</a></p>
+  </div>
+</body>
+</html>
